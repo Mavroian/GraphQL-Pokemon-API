@@ -6,9 +6,36 @@ const data = require("./data");
 
 // The schema should model the full data object available.
 const schema = buildSchema(`
+  type Attack {
+    name: String
+    type: String
+    damage:Int
+  }
+  type Sizes {
+    minimum:String
+    maximum:String
+  }
   type Pokemon {
     id: String
     name: String!
+    classification: String
+    types:[String]
+    resistant:[String]
+    weaknesses:[String]
+    weight: Sizes
+    height: Sizes
+    fleeRate:Float
+    evolutionRequirements:{
+      amount:Int
+      name:String
+    }
+    evolutions:[]
+    maxCP:Int
+    maxHP:Int
+    attacks:{
+      fast:[Attack]
+      special:[Attack]
+    }
   }
   type Query {
     Pokemons: [Pokemon]
