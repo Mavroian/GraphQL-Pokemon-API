@@ -11,9 +11,21 @@ const schema = buildSchema(`
     type: String
     damage:Int
   }
+  type AttactWrap {
+    fast:[Attack]
+    special:[Attack]
+  }
   type Sizes {
     minimum:String
     maximum:String
+  }
+  type SimplePoke {
+    id: Int
+    name: String
+  }
+  type EvolutionReq{
+    amount:Int
+    name:String
   }
   type Pokemon {
     id: String
@@ -25,21 +37,19 @@ const schema = buildSchema(`
     weight: Sizes
     height: Sizes
     fleeRate:Float
-    evolutionRequirements:{
-      amount:Int
-      name:String
-    }
-    evolutions:[]
+    evolutionRequirements: EvolutionReq
+    evolutions:[SimplePoke]
     maxCP:Int
     maxHP:Int
-    attacks:{
-      fast:[Attack]
-      special:[Attack]
-    }
+    attacks: AttactWrap
   }
+
+
   type Query {
     Pokemons: [Pokemon]
     Pokemon(name: String!): Pokemon
+    Types: [String]
+    Attacks: AttactWrap
   }
 `);
 
@@ -50,6 +60,12 @@ const root = {
   },
   Pokemon: (request) => {
     return data.pokemon.find((pokemon) => pokemon.name === request.name);
+  },
+  Types: () => {
+    return data.types;
+  },
+  Attacks: () => {
+    return data.attacks;
   },
 };
 
