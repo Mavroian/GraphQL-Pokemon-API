@@ -218,3 +218,4 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`Running a GraphQL API server at localhost:${PORT}/graphql`);
 });
+module.exports = { schema };
